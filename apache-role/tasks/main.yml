@@ -1,0 +1,17 @@
+---
+# tasks file for apache-role
+- name: "Installs Apache2 web server"
+  package:
+    name: "{{ name }}"
+    state: present
+
+- name: "Copy"
+  template: 
+    src: /home/ubuntu/apache-role/templates/landing_page.html.j2 
+    dest: /var/www/html/index.html
+  notify: "service restart"
+
+- name: "service start"
+  service:
+    name: "{{ name }}"
+    state: started
